@@ -1,35 +1,19 @@
 import React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
+import tw from "twrnc";
 
-const CustomButton = ({
-  title,
-  onPress,
-  backgroundColor = "#007BFF",
-  textColor = "#FFF",
-}) => {
+const CustomButton = ({ title, onPress }) => {
   return (
     <TouchableOpacity
-      style={[styles.button, { backgroundColor }]}
+      style={tw`py-3 px-5 rounded-lg bg-black items-center justify-center `}
       onPress={onPress}
       activeOpacity={0.7}
     >
-      <Text style={[styles.text, { color: textColor }]}>{title}</Text>
+      <Text style={tw`text-white text-lg font-bold text-green-400`}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
 
 export default CustomButton;
