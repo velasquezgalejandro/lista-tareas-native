@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "github:react-native-masked-view/masked-view",
+    "@react-native-picker/picker": "^2.11.0",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/stack": "^7.1.1",
     "css": "^3.0.0",
