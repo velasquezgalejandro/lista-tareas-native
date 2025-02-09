@@ -3,8 +3,11 @@ import { View, Text, TextInput, Switch } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import tw from "twrnc";
 
+// asyncStorage
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 // componentes creados
-import CusttomButton from "../utils/CustomButton";
+import CustomButton from "../utils/CustomButton";
 
 const PantallaLista = ({ navigation }) => {
   // estados
@@ -26,7 +29,7 @@ const PantallaLista = ({ navigation }) => {
     "Ingrese una hora valida HH:MM (24 horas)"
   );
 
-  // funciones
+  // funciones de cambio de estado y revision de datos
 
   const validarFecha = (fecha) => {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
@@ -58,15 +61,54 @@ const PantallaLista = ({ navigation }) => {
     validarHora(filteredText, setError);
   };
 
-  console.log({
-    titulo,
-    descripcion,
-    fecha,
-    horaFinal,
-    horaInicio,
-    completada,
-    prioridad,
-  });
+  // funcion de guardado de datos y validacion
+
+  const guardarDatos = async () => {
+    // validaciones
+
+    if (!titulo || !fecha || !descripcion || !horaInicio || !horaFinal) {
+      alert("Por favor diligencie todos los campos");
+      return;
+    }
+
+    if (horaInicio > horaFinal) {
+      alert("La hora de inicio no puede ser mayor a la hora de finalización");
+      return;
+    }
+
+    if (
+      fechaError.includes("invalido") ||
+      horaInicioError.includes("invalido") ||
+      horaFinalError.includes("invalido")
+    ) {
+      alert("Corriga el formato de fecha, hora inicio u hora final");
+      return;
+    }
+
+    //crea objeto a mandar
+    const tarea = {
+      titulo,
+      descripcion,
+      fecha,
+      horaInicio,
+      horaFinal,
+      prioridad,
+      completada,
+    };
+
+    try {
+      // obtiene si ya existe o crea json
+      const tareaGuardadas = await AsyncStorage.getItem("tareas");
+      const tareas = tareaGuardadas ? JSON.parse(tareaGuardadas) : [];
+
+      // agrega la tarea y guarda la lista
+      tareas.push(tarea);
+      await AsyncStorage.setItem("tareas", JSON.stringify(tareas));
+      navigation.navigate("Lista");
+    } catch (error) {
+      console.log("Error al guardar la tarea:", error);
+    }
+  };
 
   // componentes reutilizables
 
@@ -111,7 +153,7 @@ const PantallaLista = ({ navigation }) => {
 
   const renderPrioridadPicker = () => {
     const renderPickerItems = (label, value) => {
-      return <Picker.item label={label} value={value} />;
+      return <Picker.Item label={label} value={value} />;
     };
 
     return (
@@ -177,11 +219,9 @@ const PantallaLista = ({ navigation }) => {
           )}
           {horaFinalError && <Text> {horaFinalError} </Text>}
         </View>
-
         {renderPrioridadPicker()}
         {renderCompletada("Tarea completada?", completada, setCompletada)}
-
-        <CusttomButton title={"Guardar tarea"} />
+        <CustomButton title={"Guardar tarea"} onPress={guardarDatos} />
       </View>
     </View>
   );

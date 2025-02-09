@@ -9,5 +9,9 @@ gesture-handler
 reanimated
 vector-icons
 masked-view/masked-view
+asyncStorage
 
 npm install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated react-native-vector-icons react-native-masked-view/masked-view
+@react-native-async-storage/async-storage
+
+plantear cambio de pantalla de carga a form generico y despues las funcionalidades
