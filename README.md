@@ -15,3 +15,5 @@ npm install react-native-screens react-native-safe-area-context react-native-ges
 @react-native-async-storage/async-storage
 
 plantear cambio de pantalla de carga a form generico y despues las funcionalidades
+
+npm install react-native-vector-icons

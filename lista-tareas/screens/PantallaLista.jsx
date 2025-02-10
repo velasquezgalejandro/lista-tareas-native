@@ -28,11 +28,15 @@ const PantallaLista = ({ navigation }) => {
     cargarDatos();
   }, []);
 
+  // funcion de ordenamiento
+
   // return
   return (
     <View style={tw`bg-green-100 h-full`}>
       <View style={tw`flex items-center justify-center`}>
-        <Text>Esta es la vista de Lista</Text>
+        <Text style={tw`font-bold text-green-900 text-2xl my-2`}>
+          Aquí encontraras tus actividades
+        </Text>
       </View>
       <FlatList
         data={data}
@@ -45,9 +49,12 @@ const PantallaLista = ({ navigation }) => {
             horaInicio={item.horaInicio}
             horaFinal={item.horaFinal}
             prioridad={item.prioridad}
-            completada={item.completada ? "Si" : "No"}
+            completada={item.completada}
+            onEdit={() => {}}
+            onDelete={() => {}}
           />
         )}
+        contentContainerStyle={tw`items-center`}
       />
     </View>
   );
