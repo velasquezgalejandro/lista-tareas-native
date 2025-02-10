@@ -54,7 +54,11 @@ const CustomCard = ({
         <TouchableOpacity onPress={onEdit}>
           <Icon name="edit" size={24} color="green" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={onDelete}>
+        <TouchableOpacity
+          onPress={() => {
+            onDelete(titulo);
+          }}
+        >
           <Icon name="delete" size={24} color="red" />
         </TouchableOpacity>
       </View>

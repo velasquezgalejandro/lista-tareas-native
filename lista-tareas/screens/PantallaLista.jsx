@@ -28,7 +28,42 @@ const PantallaLista = ({ navigation }) => {
     cargarDatos();
   }, []);
 
+  // eliminar tareas
+  const eliminarTarea = async (titulo) => {
+    try {
+      const tareasGuardadas = await AsyncStorage.getItem("tareas");
+      let tareas = tareasGuardadas ? JSON.parse(tareasGuardadas) : [];
+
+      // la tarea que se quiere eliminar
+      const nuevasTareas = tareas.filter((tarea) => tarea.titulo !== titulo);
+
+      // Guardar la nueva lista
+      await AsyncStorage.setItem("tareas", JSON.stringify(nuevasTareas));
+
+      setData(nuevasTareas);
+    } catch (error) {
+      console.log("Error al eliminar la tarea:", error);
+    }
+  };
+
   // funcion de ordenamiento
+
+  const ordenarDatos = (tareas) => {
+    return tareas.sort((a, b) => {
+      // ordenar por completada
+      if (a.completada !== b.completada) {
+        return a.completada ? 1 : -1;
+      }
+
+      // ordenar por prioridad
+      if (a.prioridad !== b.prioridad) {
+        return a.prioridad - b.prioridad;
+      }
+
+      // por fecha y return final
+      return new Date(a.fecha) - new Date(b.fecha);
+    });
+  };
 
   // return
   return (
@@ -39,7 +74,7 @@ const PantallaLista = ({ navigation }) => {
         </Text>
       </View>
       <FlatList
-        data={data}
+        data={ordenarDatos(data)}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <CustomCard
@@ -51,7 +86,7 @@ const PantallaLista = ({ navigation }) => {
             prioridad={item.prioridad}
             completada={item.completada}
             onEdit={() => {}}
-            onDelete={() => {}}
+            onDelete={eliminarTarea}
           />
         )}
         contentContainerStyle={tw`items-center`}
