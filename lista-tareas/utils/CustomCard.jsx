@@ -53,7 +53,23 @@ const CustomCard = ({
 
       <View style={tw`flex flex-row my-3 justify-around w-full`}>
         <TouchableOpacity onPress={onEdit}>
-          <Icon name="edit" size={24} color="green" />
+          <Icon
+            name="edit"
+            size={24}
+            color="green"
+            onPress={() => {
+              onEdit(
+                id,
+                titulo,
+                descripcion,
+                fecha,
+                horaInicio,
+                horaFinal,
+                prioridad,
+                completada
+              );
+            }}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {

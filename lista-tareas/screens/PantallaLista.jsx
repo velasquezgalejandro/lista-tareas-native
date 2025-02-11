@@ -46,6 +46,11 @@ const PantallaLista = ({ navigation }) => {
     }
   };
 
+  // editar tareas
+  const editarTarea = (tarea) => {
+    navigation.navigate("Editar", { tarea });
+  };
+
   // funcion de ordenamiento
   const ordenarDatos = (tareas) => {
     return tareas.sort((a, b) => {
@@ -91,7 +96,7 @@ const PantallaLista = ({ navigation }) => {
             horaFinal={item.horaFinal}
             prioridad={item.prioridad}
             completada={item.completada}
-            onEdit={() => {}}
+            onEdit={editarTarea}
             onDelete={eliminarTarea}
           />
         )}

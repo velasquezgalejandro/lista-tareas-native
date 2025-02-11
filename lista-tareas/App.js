@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import PantallaPrincipal from "./screens/PantallaPrincipal";
 import PantallaCarga from "./screens/PantallaCarga";
 import PantallaLista from "./screens/PantallaLista";
+import PantallaEditar from "./screens/PantallaEditar";
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function App() {
         <Stack.Screen name="Principal" component={PantallaPrincipal} />
         <Stack.Screen name="Carga" component={PantallaCarga} />
         <Stack.Screen name="Lista" component={PantallaLista} />
+        <Stack.Screen name="Editar" component={PantallaEditar} />
       </Stack.Navigator>
     </NavigationContainer>
   );
