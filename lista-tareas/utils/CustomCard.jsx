@@ -4,6 +4,7 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import tw from "twrnc";
 
 const CustomCard = ({
+  id,
   titulo,
   descripcion,
   fecha,
@@ -56,7 +57,7 @@ const CustomCard = ({
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            onDelete(titulo);
+            onDelete(id);
           }}
         >
           <Icon name="delete" size={24} color="red" />

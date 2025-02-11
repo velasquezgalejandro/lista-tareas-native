@@ -47,7 +47,6 @@ const PantallaLista = ({ navigation }) => {
   };
 
   // funcion de ordenamiento
-
   const ordenarDatos = (tareas) => {
     return tareas.sort((a, b) => {
       // ordenar por completada
@@ -65,6 +64,12 @@ const PantallaLista = ({ navigation }) => {
     });
   };
 
+  // redireccion a editar
+
+  const editarDatos = () => {
+    return;
+  };
+
   // return
   return (
     <View style={tw`bg-green-100 h-full`}>
@@ -78,6 +83,7 @@ const PantallaLista = ({ navigation }) => {
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <CustomCard
+            id={item.id}
             titulo={item.titulo}
             descripcion={item.descripcion}
             fecha={item.fecha}

@@ -87,6 +87,7 @@ const PantallaLista = ({ navigation }) => {
 
     //crea objeto a mandar
     const tarea = {
+      id: Date.now(),
       titulo,
       descripcion,
       fecha,
