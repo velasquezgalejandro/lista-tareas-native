@@ -121,8 +121,6 @@ const PantallaEditar = ({ navigation, route }) => {
       completada,
     };
 
-    console.log("aqui");
-
     try {
       // obtiene si ya existe o crea json
       const tareaGuardadas = await AsyncStorage.getItem("tareas");
@@ -136,11 +134,9 @@ const PantallaEditar = ({ navigation, route }) => {
         tareas.push(tareaActualizada);
       }
 
-      console.log("aqui2");
       // agrega la tarea y guarda la lista
       await AsyncStorage.setItem("tareas", JSON.stringify(tareas));
       navigation.navigate("Lista");
-      console.log("aqui4");
     } catch (error) {
       console.log("Error al guardar la tarea:", error);
     }
