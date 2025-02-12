@@ -8,6 +8,7 @@ import CustomCard from "../utils/CustomCard";
 
 const PantallaLista = ({ navigation }) => {
   const [data, setData] = useState([]);
+  const [datosOrdenados, setDatosOrdenados] = useState(data);
 
   //obtener Datos
   const obtenerDatos = async () => {
@@ -53,27 +54,32 @@ const PantallaLista = ({ navigation }) => {
 
   // funcion de ordenamiento
   const ordenarDatos = (tareas) => {
-    return tareas.sort((a, b) => {
+    return [...tareas].sort((a, b) => {
       // ordenar por completada
       if (a.completada !== b.completada) {
         return a.completada ? 1 : -1;
       }
 
       // ordenar por prioridad
-      if (a.prioridad !== b.prioridad) {
-        return a.prioridad - b.prioridad;
+
+      const prioridadValor = (prioridad) => {
+        if (prioridad === "alta") return 1;
+        if (prioridad === "media") return 2;
+        if (prioridad === "baja") return 3;
+      };
+
+      if (prioridadValor(a.prioridad) !== prioridadValor(b.prioridad)) {
+        return prioridadValor(a.prioridad) - prioridadValor(b.prioridad);
       }
 
       // por fecha y return final
-      return new Date(a.fecha) - new Date(b.fecha);
+      return new Date(a.fecha + "T00:00:00") - new Date(b.fecha + "T00:00:00");
     });
   };
 
-  // redireccion a editar
-
-  const editarDatos = () => {
-    return;
-  };
+  useEffect(() => {
+    setDatosOrdenados(ordenarDatos(data));
+  }, [data]);
 
   // return
   return (
@@ -84,7 +90,7 @@ const PantallaLista = ({ navigation }) => {
         </Text>
       </View>
       <FlatList
-        data={ordenarDatos(data)}
+        data={datosOrdenados}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <CustomCard
