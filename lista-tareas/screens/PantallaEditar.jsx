@@ -254,6 +254,12 @@ const PantallaEditar = ({ navigation, route }) => {
         {renderPrioridadPicker()}
         {renderCompletada("Tarea completada?", completada)}
         <CustomButton title={"Guardar tarea"} onPress={guardarDatos} />
+        <View style={tw`my-2`}>
+          <CustomButton
+            title={"Volver a lista"}
+            onPress={() => navigation.navigate("Lista")}
+          />
+        </View>
       </View>
     </View>
   );

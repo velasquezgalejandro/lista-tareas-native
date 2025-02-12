@@ -5,6 +5,7 @@ import tw from "twrnc";
 //asyncStorage
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomCard from "../utils/CustomCard";
+import CustomButton from "../utils/CustomButton";
 
 const PantallaLista = ({ navigation }) => {
   const [data, setData] = useState([]);
@@ -81,6 +82,8 @@ const PantallaLista = ({ navigation }) => {
     setDatosOrdenados(ordenarDatos(data));
   }, [data]);
 
+  // navigate
+
   // return
   return (
     <View style={tw`bg-green-100 h-full`}>
@@ -88,6 +91,16 @@ const PantallaLista = ({ navigation }) => {
         <Text style={tw`font-bold text-green-900 text-2xl my-2`}>
           Aquí encontraras tus actividades
         </Text>
+      </View>
+      <View style={tw`flex flex-row items-center justify-center gap-3 mb-3`}>
+        <CustomButton
+          title={"Volver a inicio"}
+          onPress={() => navigation.navigate("Principal")}
+        />
+        <CustomButton
+          title={"Agregar tarea"}
+          onPress={() => navigation.navigate("Carga")}
+        />
       </View>
       <FlatList
         data={datosOrdenados}
