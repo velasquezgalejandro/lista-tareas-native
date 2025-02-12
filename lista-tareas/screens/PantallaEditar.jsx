@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, Switch } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import tw from "twrnc";
@@ -9,8 +9,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 // componentes creados
 import CustomButton from "../utils/CustomButton";
 
-const PantallaEditar = ({ navigation }) => {
+const PantallaEditar = ({ navigation, route }) => {
   // estados
+  const [id, setId] = useState(null);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [fecha, setFecha] = useState("");
@@ -28,6 +29,32 @@ const PantallaEditar = ({ navigation }) => {
   const [horaFinalError, setHoraFinalError] = useState(
     "Ingrese una hora valida HH:MM (24 horas)"
   );
+
+  // funcion de carga de datos
+
+  useEffect(() => {
+    if (route.params?.tarea) {
+      const {
+        id,
+        titulo,
+        descripcion,
+        fecha,
+        horaInicio,
+        horaFinal,
+        prioridad,
+        completada,
+      } = route.params.tarea;
+
+      setId(id);
+      setTitulo(titulo);
+      setDescripcion(descripcion);
+      setFecha(fecha);
+      setHoraInicio(horaInicio);
+      setHoraFinal(horaFinal);
+      setPrioridad(prioridad);
+      setCompletada(completada);
+    }
+  }, [route.params?.tarea]);
 
   // funciones de cambio de estado y revision de datos
 
@@ -65,17 +92,14 @@ const PantallaEditar = ({ navigation }) => {
 
   const guardarDatos = async () => {
     // validaciones
-
     if (!titulo || !fecha || !descripcion || !horaInicio || !horaFinal) {
       alert("Por favor diligencie todos los campos");
       return;
     }
-
     if (horaInicio > horaFinal) {
       alert("La hora de inicio no puede ser mayor a la hora de finalización");
       return;
     }
-
     if (
       fechaError.includes("invalido") ||
       horaInicioError.includes("invalido") ||
@@ -86,8 +110,8 @@ const PantallaEditar = ({ navigation }) => {
     }
 
     //crea objeto a mandar
-    const tarea = {
-      id: Date.now(),
+    const tareaActualizada = {
+      id: id || Date.now(),
       titulo,
       descripcion,
       fecha,
@@ -97,15 +121,26 @@ const PantallaEditar = ({ navigation }) => {
       completada,
     };
 
+    console.log("aqui");
+
     try {
       // obtiene si ya existe o crea json
       const tareaGuardadas = await AsyncStorage.getItem("tareas");
-      const tareas = tareaGuardadas ? JSON.parse(tareaGuardadas) : [];
+      let tareas = tareaGuardadas ? JSON.parse(tareaGuardadas) : [];
 
+      if (id) {
+        // Si es edición, reemplazar la tarea existente
+        tareas = tareas.map((t) => (t.id === id ? tareaActualizada : t));
+      } else {
+        // Si es nueva, agregarla
+        tareas.push(tareaActualizada);
+      }
+
+      console.log("aqui2");
       // agrega la tarea y guarda la lista
-      tareas.push(tarea);
       await AsyncStorage.setItem("tareas", JSON.stringify(tareas));
       navigation.navigate("Lista");
+      console.log("aqui4");
     } catch (error) {
       console.log("Error al guardar la tarea:", error);
     }
@@ -154,13 +189,13 @@ const PantallaEditar = ({ navigation }) => {
 
   const renderPrioridadPicker = () => {
     const renderPickerItems = (label, value) => {
-      return <Picker.Item label={label} value={value} />;
+      return <Picker.Item key={value} label={label} value={value} />;
     };
 
     return (
       <View style={tw`border border-green-700 rounded-lg bg-white`}>
         <Picker
-          value={prioridad}
+          selectedValue={prioridad}
           onValueChange={(itemValue) => {
             setPrioridad(itemValue);
           }}
@@ -173,14 +208,14 @@ const PantallaEditar = ({ navigation }) => {
     );
   };
 
-  const renderCompletada = (label, value, setValue) => {
+  const renderCompletada = (label, value) => {
     return (
       <View style={tw`flex-row items-center`}>
         <Text style={tw`text-black mr-2`}> {label} </Text>
         <Text style={tw`text-black`}> NO </Text>
         <Switch
           value={value}
-          onValueChange={setCompletada}
+          onValueChange={(newValue) => setCompletada(newValue)}
           thumbColor={value ? "green" : "gray"}
         />
         <Text style={tw`text-black`}> SI </Text>
@@ -221,7 +256,7 @@ const PantallaEditar = ({ navigation }) => {
           {horaFinalError && <Text> {horaFinalError} </Text>}
         </View>
         {renderPrioridadPicker()}
-        {renderCompletada("Tarea completada?", completada, setCompletada)}
+        {renderCompletada("Tarea completada?", completada)}
         <CustomButton title={"Guardar tarea"} onPress={guardarDatos} />
       </View>
     </View>

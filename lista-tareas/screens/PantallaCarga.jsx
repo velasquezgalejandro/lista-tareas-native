@@ -154,13 +154,13 @@ const PantallaLista = ({ navigation }) => {
 
   const renderPrioridadPicker = () => {
     const renderPickerItems = (label, value) => {
-      return <Picker.Item label={label} value={value} />;
+      return <Picker.Item key={value} label={label} value={value} />;
     };
 
     return (
       <View style={tw`border border-green-700 rounded-lg bg-white`}>
         <Picker
-          value={prioridad}
+          selectedValue={prioridad}
           onValueChange={(itemValue) => {
             setPrioridad(itemValue);
           }}
@@ -173,14 +173,14 @@ const PantallaLista = ({ navigation }) => {
     );
   };
 
-  const renderCompletada = (label, value, setValue) => {
+  const renderCompletada = (label, value) => {
     return (
       <View style={tw`flex-row items-center`}>
         <Text style={tw`text-black mr-2`}> {label} </Text>
         <Text style={tw`text-black`}> NO </Text>
         <Switch
           value={value}
-          onValueChange={setCompletada}
+          onValueChange={(newValue) => setCompletada(newValue)}
           thumbColor={value ? "green" : "gray"}
         />
         <Text style={tw`text-black`}> SI </Text>
@@ -221,7 +221,7 @@ const PantallaLista = ({ navigation }) => {
           {horaFinalError && <Text> {horaFinalError} </Text>}
         </View>
         {renderPrioridadPicker()}
-        {renderCompletada("Tarea completada?", completada, setCompletada)}
+        {renderCompletada("Tarea completada?", completada)}
         <CustomButton title={"Guardar tarea"} onPress={guardarDatos} />
       </View>
     </View>

@@ -58,7 +58,7 @@ const CustomCard = ({
             size={24}
             color="green"
             onPress={() => {
-              onEdit(
+              onEdit({
                 id,
                 titulo,
                 descripcion,
@@ -66,8 +66,8 @@ const CustomCard = ({
                 horaInicio,
                 horaFinal,
                 prioridad,
-                completada
-              );
+                completada,
+              });
             }}
           />
         </TouchableOpacity>
