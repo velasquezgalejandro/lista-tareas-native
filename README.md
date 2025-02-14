@@ -1,21 +1,65 @@
 # lista-tareas-native
 
-acceder a lista de tareas y correr primer paso
-se utiliza tailwind y reactnative/navigation (npm install @react-navigation/native) react native / stack (npm install @react-navigation/stack)
+Se crea administrador de tareas usando Expo y React native
 
-tambien react-native-screens
-safe-area-context
-gesture-handler
-reanimated
-vector-icons
-masked-view/masked-view
-asyncStorage
+## Funcionalidades
 
-npm install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated react-native-vector-icons react-native-masked-view/masked-view
-@react-native-async-storage/async-storage
+Aquí encontras las principales funciones que se han implementado en el proyecto:
 
-plantear cambio de pantalla de carga a form generico y despues las funcionalidades
+- **Funcionalidad 1**: Se crea aplicación para administrar tareas
+- **Funcionalidad 2**: Se crea componentes reutilizables como buttones y cards
+- **Funcionalidad 3**: Se crean diferentes vistas para crear, actualizar y ver tareas
+- **Funcionalidad 4**: Se crea formulario totalmente funcional
+- **Funcionalidad 4**: Se crean estados para manejo de formulario
 
-npm install react-native-vector-icons
+## Instalación
 
-ver editar todavia falta
+Este es un proyecto de administrador de tareas con **Expo** y **React-Native**.
+
+## Requisitos Previos
+
+Asegúrate de tener **Node.js** y **npm** instalados en tu máquina.
+
+Puedes verificar si tienes Node.js y npm instalados con los siguientes comandos:
+
+```bash
+node -v
+npm -v
+```
+
+Si no los tienes, puedes descargarlos desde Node.js.
+
+Pasos para instalar el proyecto localmente:
+
+1. **Clona el repositorio:**
+
+   ```bash
+   git clone https://github.com/velasquezgalejandro/lista-tareas-native
+   ```
+
+2. **Navega a la carpeta del proyecto:**
+
+   ```bash
+   cd lista-tareas
+   ```
+
+3. **Instala las dependencias:**
+
+   ```bash
+   npm install
+   ```
+
+   o
+
+   ```bash
+   npm install react-native-screens react-native-safe-area-context react-native-gesture-handler react-native-reanimated react-native-vector-icons react-native-masked-view/masked-view
+   @react-native-async-storage/async-storage react-native-vector-icons
+   ```
+
+4. **Ejecuta el servidor de desarrollo:**
+
+   ```bash
+   npm start
+   ```
+
+5. **Finalmente abre el proyecto en el navegador**
