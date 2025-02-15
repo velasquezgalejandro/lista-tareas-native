@@ -12,10 +12,6 @@ Aquí encontras las principales funciones que se han implementado en el proyecto
 - **Funcionalidad 4**: Se crea formulario totalmente funcional
 - **Funcionalidad 4**: Se crean estados para manejo de formulario
 
-## Instalación
-
-Este es un proyecto de administrador de tareas con **Expo** y **React-Native**.
-
 ## Requisitos Previos
 
 Asegúrate de tener **Node.js** y **npm** instalados en tu máquina.
