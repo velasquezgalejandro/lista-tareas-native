@@ -58,4 +58,4 @@ Pasos para instalar el proyecto localmente:
    npm start
    ```
 
-5. **Finalmente abre el proyecto en el navegador**
+5. **Finalmente abre el proyecto con expo go**
