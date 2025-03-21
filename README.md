@@ -59,5 +59,3 @@ Pasos para instalar el proyecto localmente:
    ```
 
 5. **Finalmente abre el proyecto con expo go**
-
-Cambio menor para testeo de source control
